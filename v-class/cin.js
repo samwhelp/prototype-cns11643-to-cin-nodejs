@@ -487,68 +487,76 @@
 					return this;
 				},
 
-				findHex_ByChar: function(char) {
+				fromCharToDec: function(char) {
+					return char.charCodeAt(0).toString(10);
+				},
 
-					if (!this.isValidChar(char)) {
-						return -1;
-					}
-
+				fromCharToHex: function(char) {
 					return char.charCodeAt(0).toString(16);
 				},
 
-				findHexExp_ByChar: function(char) {
-
-					if (!this.isValidChar(char)) {
-						return '';
-					}
-
-					return '0x' + char.charCodeAt(0).toString(16);
-
-					//String.fromCodePoint('0x' + char.charCodeAt(0).toString(16)); //findChar_ByHexExp
-
-				},
-
 				findDec_ByChar: function(char) {
+					var dec = this.fromCharToDec(char);
 
-					if (!this.isValidChar(char)) {
+					if (!this.isValidCharDec(dec)) {
 						return -1;
 					}
 
-					return char.charCodeAt(0).toString(10);
+					return dec;
 
 					//String.fromCodePoint(char.charCodeAt(0).toString(10)); //findChar_ByDec
 
 				},
 
-				findChar_ByHex: function(hex) {
-					var char = String.fromCodePoint('0x' + hex);
+				findHex_ByChar: function(char) {
+					var dec = this.fromCharToDec(char);
 
-					if (!this.isValidChar(char)) {
+					if (!this.isValidCharDec(dec)) {
+						return -1;
+					}
+
+					return this.fromCharToHex(char);
+				},
+
+				findHexExp_ByChar: function(char) {
+					var dec = this.fromCharToDec(char);
+
+					if (!this.isValidCharDec(dec)) {
 						return '';
 					}
+
+					return '0x' + this.fromCharToHex(char);
+
+					//String.fromCodePoint('0x' + char.charCodeAt(0).toString(16)); //findChar_ByHexExp
+
+				},
+
+				findChar_ByDec: function(dec) {
+
+					if (!this.isValidCharDec(dec)) {
+						return '';
+					}
+
+					var char = String.fromCodePoint(dec);
+
+					return char;
+				},
+
+				findChar_ByHex: function(hex) {
+					if (!this.isValidCharHex(hex)) {
+						return '';
+					}
+
+					var dec = parseInt(hex, 16); //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt
+					var char = String.fromCodePoint(dec);
+
+					//var char = String.fromCodePoint('0x' + hex);
 
 					return char;
 				},
 
 				findChar_ByHexExp: function(exp) {
-					var char = String.fromCodePoint(exp);
-
-					if (!this.isValidChar(char)) {
-						return '';
-					}
-
-					return char;
-				},
-
-				findChar_ByDec: function(dec) {
-
-					var char = String.fromCodePoint(dec);
-
-					if (!this.isValidChar(char)) {
-						return '';
-					}
-
-					return char;
+					return this.findChar_ByHex(exp);
 				},
 
 				toPhoneticHexMap: function() {
@@ -590,6 +598,12 @@
 
 					var dec = char.charCodeAt(0).toString(10);
 
+					return this.isValidCharDec(dec);
+
+
+				},
+
+				isValidCharDec: function(dec) {
 					dec = parseInt(dec);
 
 					if (dec === 711) { // 'ˇ' , '711', '2c7', '0x2c7'
@@ -621,7 +635,12 @@
 					}
 
 					return false;
+				},
 
+				isValidCharHex: function(hex) {
+					var dec = parseInt(hex, 16);
+
+					return this.isValidCharDec(dec);
 				},
 
 				toArray: function() {
@@ -1193,8 +1212,6 @@
 	    _Instance: null,
 	    _End: 'Class converter.CnsToCin'
 	};
-
-
 
 	converter.CnsToCin.newInstance()
 		.run()

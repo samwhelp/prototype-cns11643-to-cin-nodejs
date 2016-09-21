@@ -252,7 +252,7 @@
 				},
 
 				parseLine: function(str, line, file) {
-					list = str.split("\t");
+					var list = str.split("\t");
 					var item = {
 						grp: list[0],
 						cns: list[1],
@@ -403,7 +403,7 @@
 				},
 
 				parseLine: function(str, line, file) {
-					list = str.split("\t");
+					var list = str.split("\t");
 
 					this._Table.push({
 						grp: list[0],

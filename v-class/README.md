@@ -55,5 +55,11 @@ $ wc -l CnsPhonetic.cin
 
 ## 相關專案
 
-* [https://github.com/samwhelp/prototype-cns11643-to-cin](https://github.com/samwhelp/prototype-cns11643-to-cin)
 * [https://github.com/samwhelp/CinConvert](https://github.com/samwhelp/CinConvert)
+* [https://github.com/samwhelp/prototype-cns11643-to-cin-gjs](https://github.com/samwhelp/prototype-cns11643-to-cin-gjs)
+* [https://github.com/samwhelp/prototype-cns11643-to-cin](https://github.com/samwhelp/prototype-cns11643-to-cin)
+
+
+## 相關討論
+
+* [https://www.ubuntu-tw.org/modules/newbb/viewtopic.php?post_id=354760#forumpost354760](https://www.ubuntu-tw.org/modules/newbb/viewtopic.php?post_id=354760#forumpost354760)

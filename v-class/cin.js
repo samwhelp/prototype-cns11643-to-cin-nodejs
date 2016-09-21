@@ -87,7 +87,7 @@
 				},
 
 				_Content_Ename: 'CnsPhonetic',
-				setContent_Cname: function(val) {
+				setContent_Ename: function(val) {
 					this._Content_Ename = val;
 					return this;
 				},

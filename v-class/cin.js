@@ -821,26 +821,6 @@
 	    _End: 'Class mapping.PhoneticKey'
 	};
 
-	converter.CnsToCin = {
-		newInstance: function() {
-			var obj = {
-				run: function() {
-					console.log('run');
-				},
-				_End: 'Object converter.CnsToCin',
-			};
-	        return obj;
-	    },
-	    getInstance: function() {
-	        if (this._Instance === null) {
-	            this._Instance = this.newInstance();
-	        }
-
-	        return this._Instance;
-	    },
-	    _Instance: null,
-	    _End: 'Class converter.CnsToCin'
-	};
 
 	converter.CnsToCin = {
 		newInstance: function() {

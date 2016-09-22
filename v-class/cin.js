@@ -446,21 +446,82 @@
 					return this;
 				},
 
-				findNumber_ByCode: function(code) {
-					var num = parseInt(''+code, 16 | 0).toString(10 | 0); //http://php.net/manual/en/function.base-convert.php
-					return num;
+				fromCharToDec: function(char) {
+					char = '' + char;
+					var code = char.charCodeAt(0);
+					if (isNaN(code)) {
+						return 0;
+					}
+					return code.toString(10);
+
+					//return char.charCodeAt(0).toString(10);
+					//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/charCodeAt
+					//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isNaN
+				},
+
+				fromCharToHex: function(char) {
+					char = '' + char;
+					var code = char.charCodeAt(0);
+					if (isNaN(code)) {
+						return '';
+					}
+					return code.toString(16);
+
+					//return char.charCodeAt(0).toString(16);
+					//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/charCodeAt
+					//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isNaN
+				},
+
+				findChar_ByHex: function(hex) {
+
+					var dec = parseInt(hex, 16); //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt
+
+					if (isNaN(dec)) {
+						return '';
+					}
+
+					var char = String.fromCodePoint(dec);
+
+					////var char = String.fromCodePoint('0x' + hex); //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/fromCodePoint
+
+					return char;
+				},
+
+				findChar_ByDec: function(dec) {
+					return String.fromCodePoint(dec);
 				},
 
 				/*
-				findString_ByCode: function(code) {
-					var num = this.findNumber_ByCode(code);
+				findChar_ByHex: function(code) {
+					var num = this.findDec_ByHex(code);
 					return String.fromCodePoint(num); //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/fromCodePoint
 				},
 				*/
 
-				findString_ByCode: function(code) {
-					//var num = this.findNumber_ByCode(code);
-					return String.fromCodePoint('0x'+code); //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/fromCodePoint
+				findHex_ByChar: function(char) {
+					return this.fromCharToHex(char);
+				},
+
+				findHex_ByDec: function(dec) {
+					return Number(dec).toString(16);
+				},
+
+				findDec_ByChar: function(char) {
+					return this.fromCharToDec(char);
+					//String.fromCodePoint(char.charCodeAt(0).toString(10)); //findChar_ByDec
+				},
+
+				findDec_ByHex: function(hex) {
+					return parseInt(hex, 16); //http://php.net/manual/en/function.base-convert.php
+				},
+
+				test: function() {
+					console.log(this.findChar_ByHex('4e00'));
+					console.log(this.findChar_ByDec(19968));
+					console.log(this.findHex_ByChar('一'));
+					console.log(this.findHex_ByDec(19968));
+					console.log(this.findDec_ByChar('一'));
+					console.log(this.findDec_ByHex('4e00'));
 				},
 
 				_End: 'Object mapping.Unicode',
@@ -488,47 +549,48 @@
 				},
 
 				fromCharToDec: function(char) {
-					return char.charCodeAt(0).toString(10);
+					char = '' + char;
+					var code = char.charCodeAt(0);
+					if (isNaN(code)) {
+						return 0;
+					}
+					return code.toString(10);
+
+					//return char.charCodeAt(0).toString(10);
+					//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/charCodeAt
+					//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isNaN
 				},
 
 				fromCharToHex: function(char) {
-					return char.charCodeAt(0).toString(16);
-				},
-
-				findDec_ByChar: function(char) {
-					var dec = this.fromCharToDec(char);
-
-					if (!this.isValidCharDec(dec)) {
-						return -1;
+					char = '' + char;
+					var code = char.charCodeAt(0);
+					if (isNaN(code)) {
+						return '';
 					}
+					return code.toString(16);
 
-					return dec;
-
-					//String.fromCodePoint(char.charCodeAt(0).toString(10)); //findChar_ByDec
-
+					//return char.charCodeAt(0).toString(16);
+					//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/charCodeAt
+					//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isNaN
 				},
 
-				findHex_ByChar: function(char) {
-					var dec = this.fromCharToDec(char);
+				findChar_ByHex: function(hex) {
 
-					if (!this.isValidCharDec(dec)) {
-						return -1;
-					}
-
-					return this.fromCharToHex(char);
-				},
-
-				findHexExp_ByChar: function(char) {
-					var dec = this.fromCharToDec(char);
-
-					if (!this.isValidCharDec(dec)) {
+					if (!this.isValidCharHex(hex)) {
 						return '';
 					}
 
-					return '0x' + this.fromCharToHex(char);
+					var dec = parseInt(hex, 16); //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt
 
-					//String.fromCodePoint('0x' + char.charCodeAt(0).toString(16)); //findChar_ByHexExp
+					if (isNaN(dec)) {
+						return '';
+					}
 
+					var char = String.fromCodePoint(dec);
+
+					//var char = String.fromCodePoint('0x' + hex);
+
+					return char;
 				},
 
 				findChar_ByDec: function(dec) {
@@ -542,22 +604,47 @@
 					return char;
 				},
 
-				findChar_ByHex: function(hex) {
-					if (!this.isValidCharHex(hex)) {
+				findHex_ByChar: function(char) {
+					var dec = this.fromCharToDec(char);
+
+					if (!this.isValidCharDec(dec)) {
 						return '';
 					}
 
-					var dec = parseInt(hex, 16); //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt
-					var char = String.fromCodePoint(dec);
-
-					//var char = String.fromCodePoint('0x' + hex);
-
-					return char;
+					return this.fromCharToHex(char);
 				},
 
-				findChar_ByHexExp: function(exp) {
-					return this.findChar_ByHex(exp);
+				findHex_ByDec: function(dec) {
+					if (!this.isValidCharDec(dec)) {
+						return '';
+					}
+
+					var hex = Number(dec).toString(16);
+					return hex;
 				},
+
+				findDec_ByChar: function(char) {
+					var dec = this.fromCharToDec(char);
+
+					if (!this.isValidCharDec(dec)) {
+						return 0;
+					}
+
+					return dec;
+
+				},
+
+				findDec_ByHex: function(hex) {
+					var dec = parseInt(hex, 16);
+
+					if (!this.isValidCharDec(dec)) {
+						return 0;
+					}
+
+					return dec;
+				},
+
+
 
 				toPhoneticHexMap: function() {
 					var rtn = new Map();
@@ -686,6 +773,17 @@
 						rtn += util.EOL;
 					}
 					return rtn;
+				},
+
+				test: function() {
+
+
+					console.log(this.findChar_ByHex('3105'));
+					console.log(this.findChar_ByDec(12549));
+					console.log(this.findHex_ByChar('ㄅ'));
+					console.log(this.findHex_ByDec(12549));
+					console.log(this.findDec_ByChar('ㄅ'));
+					console.log(this.findDec_ByHex('3105'));
 				},
 
 				_End: 'Object mapping.Phonetic',
@@ -901,8 +999,8 @@
 						item.grp = cns_unicode.grp;
 						item.cns = cns_unicode.cns;
 						item.unicode = cns_unicode.unicode;
-						item.unicode_string = this._Unicode.findString_ByCode(item.unicode);
-						item.unicode_number = this._Unicode.findNumber_ByCode(item.unicode);
+						item.unicode_string = this._Unicode.findChar_ByHex(item.unicode);
+						item.unicode_number = this._Unicode.findDec_ByHex(item.unicode);
 						item.cnsunicode_file = cns_unicode.cnsunicode_file;
 						item.cnsunicode_line = cns_unicode.cnsunicode_line;
 
@@ -1213,9 +1311,11 @@
 	    _End: 'Class converter.CnsToCin'
 	};
 
+
 	converter.CnsToCin.newInstance()
 		.run()
 	;
+
 
 	console.log('end');
 }();

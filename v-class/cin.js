@@ -214,6 +214,11 @@
 
 				},
 
+				loadFile: function(path) {
+					var text = this.readFile(path);
+					this.parseText(text, path);
+				},
+
 				readFile: function(path) {
 					//http://javascript.ruanyifeng.com/nodejs/fs.html
 					//https://nodejs.org/api/fs.html
@@ -224,11 +229,6 @@
 						process.exit(1); //https://nodejs.org/api/process.html#process_process_exit_code
 					}
 					return text;
-				},
-
-				loadFile: function(path) {
-					var text = this.readFile(path);
-					this.parseText(text, path);
 				},
 
 				parseText: function(text, file) {
@@ -366,6 +366,11 @@
 
 				},
 
+				loadFile: function(path) {
+					var text = this.readFile(path);
+					this.parseText(text, path);
+				},
+
 				readFile: function(path) {
 					//http://javascript.ruanyifeng.com/nodejs/fs.html
 					//https://nodejs.org/api/fs.html
@@ -378,11 +383,6 @@
 					return text;
 				},
 
-				loadFile: function(path) {
-					var text = this.readFile(path);
-					this.parseText(text, path);
-				},
-
 				parseText: function(text, file) {
 
 					var list = text.split("\n");
@@ -393,7 +393,7 @@
 						line++;
 
 						str = str.trim();
-						if (line.length <= 0) {
+						if (str.length <= 0) {
 							continue;
 						}
 
@@ -417,7 +417,7 @@
 
 				createUrl: function(cns, grp) {
 					//http://www.cns11643.gov.tw/AIDB/query_general_view.do?page=1&code=4421
-					var rtn = ''
+					var rtn = '';
 					rtn += 'http://www.cns11643.gov.tw/AIDB/query_general_view.do';
 					rtn += '?page=' + grp;
 					rtn += '&code=' + cns;

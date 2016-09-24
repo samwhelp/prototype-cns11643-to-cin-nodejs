@@ -257,8 +257,8 @@
 						grp: list[0],
 						cns: list[1],
 						unicode: list[2],
-						cnsunicode_file: file,
-						cnsunicode_line: line
+						cnsunicode_line: line,
+						cnsunicode_file: file
 						//unicode_grp: null,
 					};
 
@@ -272,14 +272,13 @@
 					//this._Table.push(item);
 
 					var key = item.grp + '-' + item.cns;
-					var val = item;
 
 					if (this._Map.has(key)) {
 						this._Collision.push(item);
 						return;
 					}
 
-					this._Map.set(key, val);
+					this._Map.set(key, item);
 					//console.log(key, val);
 
 				},

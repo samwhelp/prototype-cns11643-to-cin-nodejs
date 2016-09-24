@@ -36,12 +36,13 @@
 				save: function() {
 					//http://javascript.ruanyifeng.com/nodejs/fs.html
 					//https://nodejs.org/api/fs.html
-
-					if (this._Content === null) {
-						this._Content = this.defContent();
+					try {
+						fs.writeFileSync(this._Path, this._Content);
+					} catch (ex) {
+						console.log('Error file write: ', path);
+						process.exit(1); //https://nodejs.org/api/process.html#process_process_exit_code
 					}
 
-					fs.writeFileSync(this._Path, this._Content);
 				},
 
 				_End: 'Object util.File',
@@ -124,7 +125,12 @@
 						this._Content = this.defContent();
 					}
 
-					fs.writeFileSync(this._Path, this._Content);
+					try {
+						fs.writeFileSync(this._Path, this._Content);
+					} catch (ex) {
+						console.log('Error file write: ', path);
+						process.exit(1); //https://nodejs.org/api/process.html#process_process_exit_code
+					}
 				},
 
 				createBlock_Head: function() {

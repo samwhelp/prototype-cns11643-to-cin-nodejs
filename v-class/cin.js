@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-!function() {
+;(function() {
 	console.log('start');
 	var fs = require('fs'); //https://nodejs.org/api/fs.html
 
@@ -1336,4 +1336,4 @@
 
 
 	console.log('end');
-}();
+})();
